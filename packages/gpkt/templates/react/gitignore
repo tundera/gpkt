@@ -1,0 +1,34 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# build
+dist
+
+# dependencies
+node_modules
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# TypeScript
+*.tsbuildinfo
+
+# testing
+.nyc_output
+coverage
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+.pnpm-debug.log*
+yarn-error.log*
+
+# misc
+.DS_Store
+*.pem
+
+# Storybook
+storybook-static

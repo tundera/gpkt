@@ -1,0 +1,8 @@
+{
+  "extends": "@gpkt/tsconfig/node-library",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["templates", "dist"]
+}

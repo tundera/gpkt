@@ -1,0 +1,49 @@
+{
+  "name": "@gpkt/eslint-config",
+  "version": "0.1.3",
+  "author": "tundera<https://github.com/tundera>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tundera/gpkt",
+    "directory": "packages/eslint-config"
+  },
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "gpkt"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@rushstack/eslint-patch": "1.1.1",
+    "@typescript-eslint/eslint-plugin": "5.15.0",
+    "@typescript-eslint/parser": "5.15.0",
+    "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-import-resolver-node": "0.3.6",
+    "eslint-import-resolver-typescript": "2.5.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-prettier": "4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "8.11.0",
+    "next": "12.1.0",
+    "typescript": "4.6.2"
+  },
+  "peerDependencies": {
+    "eslint": "^7.23.0 || ^8.0.0",
+    "next": ">=10.2.0",
+    "typescript": ">=3.3.1"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
+  }
+}

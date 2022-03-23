@@ -1,0 +1,14 @@
+version = 1
+
+[merge]
+automerge_label = "🚀 automerge"
+
+[merge.automerge_dependencies]
+versions = ["minor", "patch"]
+usernames = ["renovate"]
+
+[update]
+autoupdate_label = "♻️ autoupdate"
+
+[approve]
+auto_approve_usernames = ["rennovate", "tundera"]

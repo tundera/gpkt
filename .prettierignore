@@ -1,0 +1,10 @@
+**/build
+**/dist
+**/.next
+**/.docusaurus
+**/.turbo
+
+package-lock.json
+.yarn
+yarn.lock
+pnpm-lock.yaml

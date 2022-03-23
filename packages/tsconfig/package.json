@@ -1,0 +1,17 @@
+{
+  "name": "@gpkt/tsconfig",
+  "version": "0.1.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "files": [
+    "base.json",
+    "nextjs.json",
+    "node-library.json",
+    "react-library.json",
+    "remix.json",
+    "scripts.json",
+    "vite.json"
+  ]
+}
