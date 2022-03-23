@@ -1,6 +1,6 @@
 {
   "name": "gpkt",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Philip Johnston <tunderadev@gmail.com>",
   "description": "Create, build, and publish new packages with the gpkt scaffolding toolkit",
   "license": "MIT",
