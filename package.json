@@ -11,9 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tundera/gpkt"
+    "url": "https://github.com/tundera/gpkt",
+    "directory": "packages/transforms"
   },
-  "packageManager": "pnpm@6.32.3",
+  "packageManager": "pnpm@7.0.0-beta.2",
   "engines": {
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
@@ -34,6 +35,7 @@
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": [
+        "@babel/preset-env",
         "react",
         "react-dom"
       ],

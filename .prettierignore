@@ -3,6 +3,7 @@
 **/.next
 **/.docusaurus
 **/.turbo
+**/__testfixtures__
 
 package-lock.json
 .yarn

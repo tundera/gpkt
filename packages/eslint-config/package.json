@@ -1,8 +1,12 @@
 {
   "name": "@gpkt/eslint-config",
   "version": "0.1.2",
-  "author": "tundera<https://github.com/tundera>",
   "license": "MIT",
+  "author": {
+    "name": "Philip Johnston",
+    "url": "https://github.com/tundera",
+    "email": "tunderadev@gmail.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/tundera/gpkt",

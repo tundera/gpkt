@@ -7,11 +7,6 @@ export interface ParsedArguments {
   projectDirectory?: string
 
   /**
-   * Initialize as a TypeScript project.
-   */
-  typescript?: boolean
-
-  /**
    * Explicitly tell the CLI to bootstrap the app using npm
    */
   useNpm?: boolean
@@ -35,4 +30,9 @@ export interface ParsedArguments {
    * --template-path foo/bar
    */
   templatePath?: string
+
+  /**
+   * Skip installing dependencies in the generated project.
+   */
+  skipInstall?: boolean
 }

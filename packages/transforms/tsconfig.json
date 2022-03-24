@@ -4,5 +4,5 @@
     "baseUrl": "."
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "templates"]
+  "exclude": ["node_modules", "**/__testfixtures__"]
 }

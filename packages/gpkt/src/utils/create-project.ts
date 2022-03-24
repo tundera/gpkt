@@ -26,12 +26,14 @@ export async function createProject({
   name,
   projectPath,
   packageManager,
+  skipInstall,
   template,
   templatePath,
 }: {
   name: string
   projectPath: string
   packageManager: PackageManager
+  skipInstall?: boolean
   template?: string
   templatePath?: string
 }): Promise<void> {
@@ -185,11 +187,16 @@ export async function createProject({
     //   )
     // }
 
-    console.log('Installing packages. This might take a couple of minutes.')
-    console.log()
+    if (!skipInstall) {
+      console.log('Installing packages. This might take a couple of minutes.')
+      console.log()
 
-    await install(root, null, { packageManager, isOnline })
-    console.log()
+      await install(root, null, { packageManager, isOnline })
+      console.log()
+    } else {
+      console.log('Skipping installation of project dependencies per request.')
+      console.log()
+    }
   } else {
     /**
      * Otherwise, if a template repository is not provided for cloning, proceed
@@ -255,11 +262,6 @@ export async function createProject({
           case 'gitignore':
           case 'eslintrc.json': {
             return '.'.concat(name)
-          }
-          // README.md is ignored by webpack-asset-relocator-loader used by ncc:
-          // https://github.com/vercel/webpack-asset-relocator-loader/blob/e9308683d47ff507253e37c9bcbb99474603192b/src/asset-relocator.js#L227
-          case 'README-template.md': {
-            return 'README.md'
           }
           default: {
             return name

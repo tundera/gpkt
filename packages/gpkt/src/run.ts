@@ -3,8 +3,8 @@ import path from 'path'
 import prompts from 'prompts'
 
 import type { ParsedArguments } from './types'
-import { createProject, DownloadError } from './helpers/create-project'
-import { validateNpmName } from './helpers/validate-pkg'
+import { createProject, DownloadError } from './utils/create-project'
+import { validateNpmName } from './utils/validate-pkg'
 
 export async function run(args: ParsedArguments): Promise<void> {
   let name = args._[0] as string
@@ -65,15 +65,16 @@ export async function run(args: ParsedArguments): Promise<void> {
 
   const packageManager = !!args.useNpm ? 'npm' : !!args.usePnpm ? 'pnpm' : 'yarn'
 
-  const template = typeof args.template === 'string' && args.template.trim()
+  const template = typeof args.template === 'string' ? args.template.trim() : 'node'
 
   try {
     await createProject({
       name,
       projectPath: resolvedProjectPath,
       packageManager,
-      template: template && template !== 'default' ? template : undefined,
+      template,
       templatePath: args.templatePath,
+      skipInstall: !!args.skipInstall,
     })
   } catch (reason) {
     if (!(reason instanceof DownloadError)) {
@@ -96,6 +97,7 @@ export async function run(args: ParsedArguments): Promise<void> {
       name,
       projectPath: resolvedProjectPath,
       packageManager,
+      template,
     })
   }
 }

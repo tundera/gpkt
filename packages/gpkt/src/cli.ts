@@ -2,7 +2,7 @@ import yargs from 'yargs'
 import { cyan, red } from 'colorette'
 
 import { run } from './run'
-import { notifyUpdate } from './helpers/notify-update'
+import { notifyUpdate } from './utils/notify-update'
 import { name, version } from '../package.json'
 
 const cli = yargs
@@ -25,12 +25,6 @@ const cli = yargs
           normalize: true,
           type: 'string',
         })
-        .option('typescript', {
-          default: false,
-          alias: 'ts',
-          type: 'boolean',
-          describe: 'Initialize as a TypeScript project.',
-        })
         .option('use-npm', {
           type: 'boolean',
           describe: 'Use npm as the package manager in the generated project.',
@@ -46,7 +40,7 @@ const cli = yargs
           type: 'string',
           nargs: 1,
           describe:
-            'An template to bootstrap the app with. You can use a template name from the official Gpkt repo or a GitHub URL. The URL can use any branch and/or subdirectory.',
+            'A template to bootstrap the app with. You can use a template name from the official Gpkt repo or a GitHub URL. The URL can use any branch and/or subdirectory.',
           requiresArg: true,
         })
         .option('template-path', {
@@ -54,6 +48,11 @@ const cli = yargs
           nargs: 1,
           describe:
             'In a rare case, your GitHub URL might contain a branch name with a slash (e.g. bug/fix-1) and the path to the template (e.g. foo/bar). In this case, you must specify the path to the template separately: --template-path foo/bar.',
+        })
+        .option('skip-install', {
+          type: 'boolean',
+          describe: 'Skip installing dependencies in the generated project.',
+          default: false,
         })
         .example('$0 my-package', `Create a new project named 'my-package'`),
     async (argv) => {
@@ -78,6 +77,18 @@ const cli = yargs
         process.exit(0)
       }
     },
+  )
+  .command('install', 'Install an integration or run an installer script', (yargs) =>
+    yargs
+      .positional('name', {
+        describe: 'The name of the integration or installer script',
+        type: 'string',
+      })
+      .option('ignore-git', {
+        alias: ['force'],
+        describe: 'Ignore warnings from git.',
+        type: 'boolean',
+      }),
   )
 
 cli.help().parse()
