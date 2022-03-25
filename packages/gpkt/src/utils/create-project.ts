@@ -27,15 +27,17 @@ export async function createProject({
   projectPath,
   packageManager,
   skipInstall,
+  preset,
   template,
   templatePath,
 }: {
   name: string
   projectPath: string
   packageManager: PackageManager
-  skipInstall?: boolean
+  preset?: string
   template?: string
   templatePath?: string
+  skipInstall?: boolean
 }): Promise<void> {
   let repoInfo: RepoInfo | undefined
 
@@ -200,63 +202,22 @@ export async function createProject({
   } else {
     /**
      * Otherwise, if a template repository is not provided for cloning, proceed
-     * by installing from a template.
+     * by installing from a Gpkg preset.
      */
     console.log(bold(`Using ${packageManager}.`))
+    console.log()
 
-    await updatePackageJson(root, packageOverrides)
+    const presetName = preset ?? 'node'
 
-    /**
-     * These flags will be passed to `install()`.
-     */
-    const installFlags = { packageManager, isOnline }
-
-    /**
-     * Default dependencies.
-     */
-    const dependencies = ['react', 'react-dom', 'next']
-
-    /**
-     * Default devDependencies.
-     */
-    const devDependencies = ['eslint', 'eslint-config-next']
-
-    /**
-     * Install package.json dependencies if they exist.
-     */
-    if (dependencies.length) {
-      console.log()
-      console.log('Installing dependencies:')
-      for (const dependency of dependencies) {
-        console.log(`- ${cyan(dependency)}`)
-      }
-      console.log()
-
-      await install(root, dependencies, installFlags)
-    }
-
-    /**
-     * Install package.json devDependencies if they exist.
-     */
-    if (devDependencies.length) {
-      console.log()
-      console.log('Installing devDependencies:')
-      for (const devDependency of devDependencies) {
-        console.log(`- ${cyan(devDependency)}`)
-      }
-      console.log()
-
-      const devInstallFlags = { devDependencies: true, ...installFlags }
-      await install(root, devDependencies, devInstallFlags)
-    }
+    console.log(bold(`Creating project with "${presetName}" preset.`))
     console.log()
 
     /**
      * Copy the template files to the target directory.
      */
     const { default: cpy } = await import('cpy')
-    await cpy('**', root, {
-      cwd: path.join(templatesDirectory, template as string),
+    await cpy('./**', root, {
+      cwd: path.join(templatesDirectory, presetName),
       rename: (name) => {
         switch (name) {
           case 'gitignore':
@@ -269,6 +230,15 @@ export async function createProject({
         }
       },
     })
+
+    /**
+     * Update package.json with the provided overrides and install
+     * project dependencies.
+     */
+    await updatePackageJson(root, packageOverrides)
+    await install(root, null, { packageManager, isOnline })
+
+    console.log()
   }
 
   if (tryGitInit(root)) {

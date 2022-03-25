@@ -17,11 +17,16 @@ export interface ParsedArguments {
   usePnpm?: boolean
 
   /**
-   * A template to bootstrap the app with. You can use a template name
-   * from the official Gpkt repo or a GitHub URL. The URL can use
-   * any branch and/or subdirectory
+   * Use one of the official Gpkt presets to bootstrap the project with.
+   * Current presets include `react`, `vue`, `node`, and `cli`.
    */
-  template?: boolean | string
+  preset?: string
+
+  /**
+   * A template to bootstrap the project with. The URL can use any
+   * branch and/or subdirectory
+   */
+  template?: string
 
   /**
    * In a rare case, your GitHub URL might contain a branch name with

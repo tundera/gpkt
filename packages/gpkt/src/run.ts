@@ -58,20 +58,21 @@ export async function run(args: ParsedArguments): Promise<void> {
   const projectPath = args.projectDirectory ?? name
   const resolvedProjectPath = path.resolve(projectPath)
 
-  if (args.template === true) {
+  if (!!args.template === true) {
     console.error('Please provide a template name or url, otherwise remove the template option.')
     process.exit(1)
   }
 
   const packageManager = !!args.useNpm ? 'npm' : !!args.usePnpm ? 'pnpm' : 'yarn'
 
-  const template = typeof args.template === 'string' ? args.template.trim() : 'node'
+  const template = args.template && args.template.trim()
 
   try {
     await createProject({
       name,
       projectPath: resolvedProjectPath,
       packageManager,
+      preset: args.preset,
       template,
       templatePath: args.templatePath,
       skipInstall: !!args.skipInstall,
