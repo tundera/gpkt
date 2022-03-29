@@ -1,12 +1,30 @@
+import type { ArgumentsCamelCase } from 'yargs'
 import { cyan, green, red, bold } from 'colorette'
 import path from 'path'
 import prompts from 'prompts'
 
-import type { ParsedArguments } from './types'
-import { createProject, DownloadError } from './utils/create-project'
-import { validateNpmName } from './utils/validate-pkg'
+import type { CreateArguments, CommandExecutor } from '../types'
+import { createProject, DownloadError } from '../utils/create-project'
+import { validateNpmName } from '../utils/validate-pkg'
 
-export async function run(args: ParsedArguments): Promise<void> {
+export const create = async (args: ArgumentsCamelCase<CreateArguments>) => {
+  try {
+    await execute(args)
+  } catch (reason) {
+    console.log()
+    console.log('Aborting new project creation.')
+    if ((reason as any).command) {
+      console.log(`  ${cyan((reason as any).command)} has failed.`)
+    } else {
+      console.log(red('Unexpected error. Please report it as a bug:'))
+      console.log(reason)
+    }
+    console.log()
+    process.exit(1)
+  }
+}
+
+export const execute: CommandExecutor<CreateArguments> = async (args) => {
   let name = args._[0] as string
 
   if (typeof name === 'string') {

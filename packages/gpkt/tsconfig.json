@@ -1,5 +1,5 @@
 {
-  "extends": "@gpkt/tsconfig/node-library",
+  "extends": "@gpkt/tsconfig/react-library",
   "compilerOptions": {
     "baseUrl": "."
   },

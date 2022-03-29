@@ -18,6 +18,8 @@ import { isFolderEmpty } from './is-folder-empty'
 import { getOnline } from './is-online'
 import { isWriteable } from './is-writeable'
 import { updatePackageJson } from './update-package-json'
+import { copyDirectoryWithTemplate } from './copy-directory-with-template'
+import { markFilesExecutable } from './mark-files-executable'
 import type { PackageManager } from './get-pkg-manager'
 
 export class DownloadError extends Error {}
@@ -116,6 +118,7 @@ export async function createProject({
   }
 
   const useYarn = packageManager === 'yarn'
+  const packageExecutor = packageManager === 'npm' ? 'npx' : packageManager
   const isOnline = !useYarn || (await getOnline())
   const originalDirectory = process.cwd()
   const templatesDirectory = path.join(__dirname, '../..', 'templates')
@@ -180,15 +183,6 @@ export async function createProject({
       fs.copyFileSync(path.join(templatesDirectory, template, 'gitignore'), ignorePath)
     }
 
-    // // Copy default `next-env.d.ts` to any template that is typescript
-    // const tsconfigPath = path.join(root, 'tsconfig.json')
-    // if (fs.existsSync(tsconfigPath)) {
-    //   fs.copyFileSync(
-    //     path.join(templatesDirectory, 'typescript', 'next-env.d.ts'),
-    //     path.join(root, 'next-env.d.ts'),
-    //   )
-    // }
-
     if (!skipInstall) {
       console.log('Installing packages. This might take a couple of minutes.')
       console.log()
@@ -216,7 +210,7 @@ export async function createProject({
      * Copy the template files to the target directory.
      */
     const { default: cpy } = await import('cpy')
-    await cpy('./**', root, {
+    await cpy(['./**', '!./**/*.ejs'], root, {
       cwd: path.join(templatesDirectory, presetName),
       rename: (name) => {
         switch (name) {
@@ -231,12 +225,27 @@ export async function createProject({
       },
     })
 
+    await copyDirectoryWithTemplate(path.join(templatesDirectory, presetName), root, {
+      packageExecutor,
+    })
+
+    /**
+     * Mark shell files executable.
+     */
+    await markFilesExecutable(`${root}/.husky/*`)
+
     /**
      * Update package.json with the provided overrides and install
      * project dependencies.
      */
     await updatePackageJson(root, packageOverrides)
     await install(root, null, { packageManager, isOnline })
+
+    console.log()
+
+    /**
+     * Replace template variables in the copied files.
+     */
 
     console.log()
   }

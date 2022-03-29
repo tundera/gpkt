@@ -1,17 +1,18 @@
 import yargs from 'yargs'
-import { cyan, red } from 'colorette'
 
-import { run } from './run'
-import { notifyUpdate } from './utils/notify-update'
+import { create, execute, setup } from './handlers'
+import { checkForUpdate, clearConsole } from './middleware'
 import { name, version } from '../package.json'
 
 const cli = yargs
   .scriptName(name)
   .version(version)
-  .usage(`$0 <name> [options]`)
+  .usage(`Usage: $0 <command> [options]`)
+  .help()
   .strictCommands()
   .command(
-    '$0',
+    ['create', 'new', '$0'],
+
     'Create a new project from a template',
     (yargs) =>
       yargs
@@ -65,41 +66,26 @@ const cli = yargs
           describe: 'Skip installing dependencies in the generated project.',
           default: false,
         })
-        .example('$0 my-package', `Create a new project named 'my-package'`),
-    async (argv) => {
-      try {
-        await run(argv)
-      } catch (reason) {
-        console.log()
-        console.log('Aborting installation.')
-        if ((reason as any).command) {
-          console.log(`  ${cyan((reason as any).command)} has failed.`)
-        } else {
-          console.log(red('Unexpected error. Please report it as a bug:'))
-          console.log(reason)
-        }
-        console.log()
-
-        await notifyUpdate()
-
-        process.exit(1)
-      } finally {
-        await notifyUpdate()
-        process.exit(0)
-      }
-    },
-  )
-  .command('install', 'Install an integration or run an installer script', (yargs) =>
-    yargs
-      .positional('name', {
-        describe: 'The name of the integration or installer script',
-        type: 'string',
-      })
-      .option('ignore-git', {
-        alias: ['force'],
-        describe: 'Ignore warnings from git.',
-        type: 'boolean',
-      }),
+        .example(
+          '$0 create component-library --preset react --use-pnpm',
+          `Create a new project named 'component-library' with the 'react' preset and install dependencies with pnpm.`,
+        ),
+    create,
   )
 
-cli.help().parse()
+// cli.command('setup', 'Install an integration or run a setup script', (yargs) =>
+//   yargs
+//     .positional('name', {
+//       describe: 'The name of the integration or setup script',
+//       type: 'string',
+//     })
+//     .option('ignore-git', {
+//       alias: ['force'],
+//       describe: 'Ignore warnings from git.',
+//       type: 'boolean',
+//     }),
+// )
+
+// cli.middleware(checkForUpdate)
+
+cli.parse()

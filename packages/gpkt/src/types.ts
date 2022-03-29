@@ -1,6 +1,10 @@
-export interface ParsedArguments {
-  [key: string]: any
+export type CommandExecutor<T> = (args: T) => void | Promise<void>
 
+export interface DefaultArguments {
+  [key: string]: any
+}
+
+export interface CreateArguments extends DefaultArguments {
   /**
    * The project directory for the generated application.
    */
