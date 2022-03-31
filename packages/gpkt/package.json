@@ -80,6 +80,8 @@
     "yargs": "17.4.0"
   },
   "devDependencies": {
+    "@babel/core": "7.17.8",
+    "@babel/preset-env": "7.16.11",
     "@gpkt/eslint-config": "workspace:*",
     "@gpkt/tsconfig": "workspace:*",
     "@types/async-retry": "1.4.3",
@@ -104,20 +106,11 @@
     "unbuild": "^0.7.0",
     "vitest": "0.7.10"
   },
+  "peerDependencies": {
+    "@babel/core": "7.17.8",
+    "@babel/preset-env": "7.16.11"
+  },
   "engines": {
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "@babel/preset-env",
-        "react",
-        "react-dom"
-      ],
-      "allowedVersions": {
-        "react": "*",
-        "react-dom": "*"
-      }
-    }
   }
 }
