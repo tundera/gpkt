@@ -1,6 +1,6 @@
 {
   "name": "gpkt",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Create, build, and publish new packages with the gpkt scaffolding toolkit",
   "license": "MIT",
   "author": {
