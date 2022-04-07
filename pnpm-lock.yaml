@@ -59,7 +59,7 @@ importers:
       '@types/node': ^17.0.21
       '@types/prettier': 2.4.4
       '@types/prompts': 2.0.14
-      '@types/react': 17.0.43
+      '@types/react': 17.0.44
       '@types/rimraf': 3.0.2
       '@types/tar': 6.1.1
       '@types/validate-npm-package-name': 3.0.3
@@ -108,7 +108,7 @@ importers:
       ejs: 3.1.6
       globby: 13.1.1
       got: 12.0.2
-      ink: 3.2.0_03a98942b76c57740a9573edba2d1cc1
+      ink: 3.2.0_c8e45b4eb687790dba17b4e1c4b4273f
       ink-spinner: 4.0.3_ink@3.2.0+react@17.0.2
       jscodeshift: 0.13.1_@babel+preset-env@7.16.11
       merge-anything: 5.0.2
@@ -132,7 +132,7 @@ importers:
       '@types/node': 17.0.23
       '@types/prettier': 2.4.4
       '@types/prompts': 2.0.14
-      '@types/react': 17.0.43
+      '@types/react': 17.0.44
       '@types/rimraf': 3.0.2
       '@types/tar': 6.1.1
       '@types/validate-npm-package-name': 3.0.3
@@ -3566,8 +3566,8 @@ packages:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
     dev: true
 
-  /@types/react/17.0.43:
-    resolution: {integrity: sha512-8Q+LNpdxf057brvPu1lMtC5Vn7J119xrP1aq4qiaefNioQUYANF/CYeK4NsKorSZyUGJ66g0IM+4bbjwx45o2A==}
+  /@types/react/17.0.44:
+    resolution: {integrity: sha512-Ye0nlw09GeMp2Suh8qoOv0odfgCoowfM/9MG6WeRD60Gq9wS90bdkdRtYbRkNhXOpG4H+YXGvj4wOWhAC0LJ1g==}
     dependencies:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
@@ -6664,11 +6664,11 @@ packages:
         optional: true
     dependencies:
       cli-spinners: 2.6.1
-      ink: 3.2.0_03a98942b76c57740a9573edba2d1cc1
+      ink: 3.2.0_c8e45b4eb687790dba17b4e1c4b4273f
       react: 17.0.2
     dev: false
 
-  /ink/3.2.0_03a98942b76c57740a9573edba2d1cc1:
+  /ink/3.2.0_c8e45b4eb687790dba17b4e1c4b4273f:
     resolution: {integrity: sha512-firNp1q3xxTzoItj/eOOSZQnYSlyrWks5llCTVX37nJ59K3eXbQ8PtzCguqo8YI19EELo5QxaKnJd4VxzhU8tg==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -6680,7 +6680,7 @@ packages:
       react:
         optional: true
     dependencies:
-      '@types/react': 17.0.43
+      '@types/react': 17.0.44
       ansi-escapes: 4.3.2
       auto-bind: 4.0.0
       chalk: 4.1.2
