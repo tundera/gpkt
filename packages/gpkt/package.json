@@ -98,7 +98,7 @@
     "@types/validate-npm-package-name": "3.0.3",
     "@types/yargs": "^17.0.9",
     "bumpp": "^7.1.1",
-    "eslint": "8.11.0",
+    "eslint": "8.13.0",
     "esno": "^0.14.1",
     "jiti": "^1.13.0",
     "prettier": "^2.6.0",
