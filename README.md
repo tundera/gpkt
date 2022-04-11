@@ -1,9 +1,36 @@
+<p align="center">
+  <a href="https://nextjs.org">
+    <img src="https://res.cloudinary.com/dbc3x3s7c/image/upload/v1649346449/logos/gpkt_lm5z6k.png" height="500">
+    <h1 align="center">gpkt</h1>
+  </a>
+</p>
+
+<p align="center">
+  <a aria-label="Vercel logo" href="https://vercel.com">
+    <img src="https://img.shields.io/badge/MADE%20BY%20Vercel-000000.svg?style=for-the-badge&logo=Vercel&labelColor=000">
+  </a>
+  <a aria-label="NPM version" href="https://www.npmjs.com/package/next">
+    <img alt="" src="https://img.shields.io/npm/v/next.svg?style=for-the-badge&labelColor=000000">
+  </a>
+  <a aria-label="License" href="https://github.com/vercel/next.js/blob/canary/license.md">
+    <img alt="" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000">
+  </a>
+  <a aria-label="Join the community on GitHub" href="https://github.com/vercel/next.js/discussions">
+    <img alt="" src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&logo=Next.js&labelColor=000000&logoWidth=20">
+  </a>
+</p>
+
+## Getting Started
+
+Visit
+<a aria-label="next.js learn" href="<<<<<<<<<<<<<<<<<<<<<<<<<https://nextjs.org/learn>>>>>>>>>>>>>>>>>>>>>>>>>">https://nextjs.org/learn</a>
+to get started with Next.js.
+
 # gpkt
 
-Gpkt is the quickest way to get started building a new TypeScript package. This CLI tool enables you
-to quickly start building a new project, with everything set up for you. You can create a package
-using one of the
-[official Gpkt templates](https://github.com/tundera/gpkt/tree/main/packages/gpkt/templates). To get
+gpkt is a CLI toolchain that helps you get started building a new TypeScript package with everything
+set up out the gate. You can create a package using one of the
+[official gpkt templates](https://github.com/tundera/gpkt/tree/main/packages/gpkt/templates). To get
 started, use the following command:
 
 ```bash

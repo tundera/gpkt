@@ -1,5 +1,5 @@
 import clear from 'console-clear'
 
-export async function clearConsole() {
+export async function prepareConsole() {
   clear(true)
 }

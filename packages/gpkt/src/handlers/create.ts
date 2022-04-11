@@ -1,15 +1,18 @@
 import type { ArgumentsCamelCase } from 'yargs'
-import { cyan, green, red, bold } from 'colorette'
+import consola from 'consola'
 import path from 'path'
 import prompts from 'prompts'
+import { cyan, green, red, bold } from 'colorette'
 
 import type { CreateArguments, CommandExecutor } from '../types'
 import { createProject, DownloadError } from '../utils/create-project'
 import { validateNpmName } from '../utils/validate-pkg'
 
 export const create = async (args: ArgumentsCamelCase<CreateArguments>) => {
+  consola.wrapAll()
+
   try {
-    await execute(args)
+    await run(args)
   } catch (reason) {
     console.log()
     console.log('Aborting new project creation.')
@@ -22,9 +25,11 @@ export const create = async (args: ArgumentsCamelCase<CreateArguments>) => {
     console.log()
     process.exit(1)
   }
+
+  consola.restoreAll()
 }
 
-export const execute: CommandExecutor<CreateArguments> = async (args) => {
+const run: CommandExecutor<CreateArguments> = async (args) => {
   let name = args._[0] as string
 
   if (typeof name === 'string') {

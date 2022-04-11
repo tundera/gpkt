@@ -1,7 +1,8 @@
 import yargs from 'yargs'
+import { cyan } from 'colorette'
 
-import { create, execute, setup } from './handlers'
-import { checkForUpdate, clearConsole } from './middleware'
+import { create, setup } from './handlers'
+import { checkForUpdate, prepareConsole } from './middleware'
 import { name, version } from '../package.json'
 
 const cli = yargs
@@ -11,11 +12,11 @@ const cli = yargs
   .help()
   .strictCommands()
   .command(
-    ['create', 'new', '$0'],
-
+    ['create <name>', 'new <name>'],
     'Create a new project from a template',
     (yargs) =>
       yargs
+        .usage(`Usage: $0 ${cyan('create')} <name> [options]`)
         .positional('name', {
           describe: 'The name of the project',
           type: 'string',
@@ -46,7 +47,7 @@ const cli = yargs
           conflicts: ['template', 'template-path'],
         })
         .option('template', {
-          alias: '-t',
+          alias: ['t'],
           type: 'string',
           nargs: 1,
           describe:
@@ -73,19 +74,24 @@ const cli = yargs
     create,
   )
 
-// cli.command('setup', 'Install an integration or run a setup script', (yargs) =>
-//   yargs
-//     .positional('name', {
-//       describe: 'The name of the integration or setup script',
-//       type: 'string',
-//     })
-//     .option('ignore-git', {
-//       alias: ['force'],
-//       describe: 'Ignore warnings from git.',
-//       type: 'boolean',
-//     }),
-// )
+cli.command(
+  'setup',
+  'Install an integration or run a setup script',
+  (yargs) =>
+    yargs
+      .positional('name', {
+        describe: 'The name of the integration or setup script',
+        type: 'string',
+      })
+      .option('ignore-git', {
+        alias: ['force'],
+        describe: 'Ignore warnings from git.',
+        type: 'boolean',
+      }),
+  setup,
+)
 
+cli.middleware(prepareConsole)
 // cli.middleware(checkForUpdate)
 
 cli.parse()

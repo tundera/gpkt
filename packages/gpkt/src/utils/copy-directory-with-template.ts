@@ -13,21 +13,37 @@ export function cleanTemplateDestPath(file: string) {
 /**
  * Copies all rendered `ejs` templates from the `templates` directory to the destination directory
  */
-export async function copyDirectoryWithTemplate(from: string, to: string, variables = {}) {
+export async function copyDirectoryWithTemplate(from: string, dest: string, variables = {}) {
   const { globby } = await import('globby')
 
   try {
-    await fs.mkdir(path.dirname(to), { recursive: true })
+    await fs.mkdir(path.dirname(dest), { recursive: true })
   } catch (e) {
     console.error('error making directory', e)
   }
 
   const files = await globby([`${from}/**/*.ejs`], { expandDirectories: true, dot: true })
 
-  return await Promise.all(
+  await Promise.all(
     files.map(async (file) => {
-      const toFile = cleanTemplateDestPath(file.replace(from, to))
+      const toFile = cleanTemplateDestPath(file.replace(from, dest))
       return copyWithTemplate(file, toFile, variables)
     }),
   )
+
+  const { default: cpy } = await import('cpy')
+  await cpy(['./**', '!./**/*.ejs'], dest, {
+    cwd: from,
+    rename: (name) => {
+      switch (name) {
+        case 'gitignore':
+        case 'eslintrc.json': {
+          return '.'.concat(name)
+        }
+        default: {
+          return name
+        }
+      }
+    },
+  })
 }

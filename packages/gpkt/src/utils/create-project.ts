@@ -20,6 +20,8 @@ import { isWriteable } from './is-writeable'
 import { updatePackageJson } from './update-package-json'
 import { copyDirectoryWithTemplate } from './copy-directory-with-template'
 import { markFilesExecutable } from './mark-files-executable'
+import { addYarnConfig } from './add-yarn-config'
+import { removePnpmConfig } from './remove-pnpm-config'
 import type { PackageManager } from './get-pkg-manager'
 
 export class DownloadError extends Error {}
@@ -123,9 +125,6 @@ export async function createProject({
   const originalDirectory = process.cwd()
   const templatesDirectory = path.join(__dirname, '../..', 'templates')
 
-  const templateName = console.log(`Creating a new project in ${green(root)}.`)
-  console.log()
-
   process.chdir(root)
 
   const packageOverrides = {
@@ -152,15 +151,11 @@ export async function createProject({
         const repoInfo2 = repoInfo
         console.log(`Downloading files from repo ${cyan(template)}. This might take a moment.`)
         console.log()
-        await retry(async () => await downloadAndExtractRepo(root, repoInfo2), {
-          retries: 3,
-        })
+        await retry(async () => await downloadAndExtractRepo(root, repoInfo2))
       } else {
         console.log(`Downloading files for template ${cyan(template)}. This might take a moment.`)
         console.log()
-        await retry(async () => await downloadAndExtractTemplate(root, template), {
-          retries: 3,
-        })
+        await retry(async () => await downloadAndExtractTemplate(root, template))
       }
     } catch (reason) {
       function isErrorLike(err: unknown): err is { message: string } {
@@ -196,7 +191,7 @@ export async function createProject({
   } else {
     /**
      * Otherwise, if a template repository is not provided for cloning, proceed
-     * by installing from a Gpkg preset.
+     * by installing from a Gpkt preset.
      */
     console.log(bold(`Using ${packageManager}.`))
     console.log()
@@ -209,23 +204,8 @@ export async function createProject({
     /**
      * Copy the template files to the target directory.
      */
-    const { default: cpy } = await import('cpy')
-    await cpy(['./**', '!./**/*.ejs'], root, {
-      cwd: path.join(templatesDirectory, presetName),
-      rename: (name) => {
-        switch (name) {
-          case 'gitignore':
-          case 'eslintrc.json': {
-            return '.'.concat(name)
-          }
-          default: {
-            return name
-          }
-        }
-      },
-    })
-
     await copyDirectoryWithTemplate(path.join(templatesDirectory, presetName), root, {
+      packageManager,
       packageExecutor,
     })
 
@@ -233,6 +213,21 @@ export async function createProject({
      * Mark shell files executable.
      */
     await markFilesExecutable(`${root}/.husky/*`)
+
+    /**
+     * If not using PNPM and the `pnpm` key is defined in the template
+     * pacakge.json, remove it.
+     */
+    if (packageManager !== 'pnpm') {
+      await removePnpmConfig(root)
+    }
+
+    /**
+     * Create yarn config if using yarn as the package manager.
+     */
+    if (packageManager === 'yarn') {
+      await addYarnConfig(root)
+    }
 
     /**
      * Update package.json with the provided overrides and install
@@ -265,18 +260,13 @@ export async function createProject({
   console.log(`${green('Success!')} Created ${name} at ${projectPath}`)
   console.log('Inside that directory, you can run several commands:')
   console.log()
-  console.log(cyan(`  ${packageManager} ${useYarn ? '' : 'run '}dev`))
-  console.log('    Starts the development server.')
-  console.log()
   console.log(cyan(`  ${packageManager} ${useYarn ? '' : 'run '}build`))
-  console.log('    Builds the app for production.')
+  console.log('    Builds the package for production.')
+  console.log()
+  console.log(cyan(`  ${packageManager} ${useYarn ? '' : 'run '}dev`))
+  console.log('    Watches source files and rebuilds package upon changes.')
   console.log()
   console.log(cyan(`  ${packageManager} start`))
   console.log('    Runs the built app in production mode.')
-  console.log()
-  console.log('We suggest that you begin by typing:')
-  console.log()
-  console.log(cyan('  cd'), cdpath)
-  console.log(`  ${cyan(`${packageManager} ${useYarn ? '' : 'run '}dev`)}`)
   console.log()
 }
