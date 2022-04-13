@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { yellow } from 'colorette'
-import spawn from 'cross-spawn'
+import { execa } from 'execa'
 import type { PackageManager } from './get-pkg-manager'
 
 interface InstallArgs {
@@ -32,10 +32,12 @@ export function install(
    * (p)npm-specific command-line flags.
    */
   const npmFlags: string[] = []
+
   /**
    * Yarn-specific command-line flags.
    */
   const yarnFlags: string[] = []
+
   /**
    * Return a Promise that resolves once the installation is finished.
    */
@@ -82,6 +84,7 @@ export function install(
         }
       }
     }
+
     /**
      * Add any package manager-specific flags.
      */
@@ -90,11 +93,12 @@ export function install(
     } else {
       args.push(...npmFlags)
     }
+
     /**
      * Spawn the installation process.
      */
-    const child = spawn(command, args, {
-      stdio: 'inherit',
+    const child = execa(command, args, {
+      stdio: 'ignore',
       env: { ...process.env, ADBLOCK: '1', DISABLE_OPENCOLLECTIVE: '1' },
     })
     child.on('close', (code) => {

@@ -1,8 +1,8 @@
 {
-  "extends": "@gpkt/tsconfig/react-library",
+  "extends": "@gpkt/tsconfig/node-library",
   "compilerOptions": {
     "baseUrl": "."
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts"],
   "exclude": ["node_modules", "templates"]
 }

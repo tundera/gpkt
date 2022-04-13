@@ -1,5 +1,4 @@
 import type { ArgumentsCamelCase } from 'yargs'
-import consola from 'consola'
 import path from 'path'
 import prompts from 'prompts'
 import { cyan, green, red, bold } from 'colorette'
@@ -9,8 +8,6 @@ import { createProject, DownloadError } from '../utils/create-project'
 import { validateNpmName } from '../utils/validate-pkg'
 
 export const create = async (args: ArgumentsCamelCase<CreateArguments>) => {
-  consola.wrapAll()
-
   try {
     await run(args)
   } catch (reason) {
@@ -25,8 +22,6 @@ export const create = async (args: ArgumentsCamelCase<CreateArguments>) => {
     console.log()
     process.exit(1)
   }
-
-  consola.restoreAll()
 }
 
 const run: CommandExecutor<CreateArguments> = async (args) => {

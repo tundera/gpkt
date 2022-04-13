@@ -14,6 +14,7 @@ import {
 import { makeDir } from './make-dir'
 import { tryGitInit } from './git'
 import { install } from './install'
+import ora from 'ora'
 import { isFolderEmpty } from './is-folder-empty'
 import { getOnline } from './is-online'
 import { isWriteable } from './is-writeable'
@@ -182,7 +183,15 @@ export async function createProject({
       console.log('Installing packages. This might take a couple of minutes.')
       console.log()
 
+      const spinner = ora({
+        text: 'Installing dependencies...',
+        spinner: {
+          frames: ['   ', '>  ', '>> ', '>>>'],
+        },
+      }).start()
+
       await install(root, null, { packageManager, isOnline })
+      spinner.stop()
       console.log()
     } else {
       console.log('Skipping installation of project dependencies per request.')
@@ -234,7 +243,15 @@ export async function createProject({
      * project dependencies.
      */
     await updatePackageJson(root, packageOverrides)
+
+    const spinner = ora({
+      text: 'Installing dependencies...',
+      spinner: {
+        frames: ['   ', '>  ', '>> ', '>>>'],
+      },
+    }).start()
     await install(root, null, { packageManager, isOnline })
+    spinner.stop()
 
     console.log()
 
@@ -257,16 +274,12 @@ export async function createProject({
     cdpath = projectPath
   }
 
-  console.log(`${green('Success!')} Created ${name} at ${projectPath}`)
-  console.log('Inside that directory, you can run several commands:')
-  console.log()
+  console.log(`${green('Success!')} Created ${name} at ${projectPath}\n`)
+  console.log('Inside that directory, you can run several commands:\n')
   console.log(cyan(`  ${packageManager} ${useYarn ? '' : 'run '}build`))
-  console.log('    Builds the package for production.')
-  console.log()
+  console.log('    Builds the package for production.\n')
   console.log(cyan(`  ${packageManager} ${useYarn ? '' : 'run '}dev`))
-  console.log('    Watches source files and rebuilds package upon changes.')
-  console.log()
+  console.log('    Watches source files and rebuilds package upon changes.\n')
   console.log(cyan(`  ${packageManager} start`))
-  console.log('    Runs the built app in production mode.')
-  console.log()
+  console.log('    Runs the built app in production mode.\n')
 }

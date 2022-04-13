@@ -1,10 +1,7 @@
 import type { ArgumentsCamelCase } from 'yargs'
-import React from 'react'
-import { render, Box, Text } from 'ink'
 import { cyan, red } from 'colorette'
 
 import type { CreateArguments, CommandExecutor } from '../types'
-import { Loading, Welcome } from '../components'
 
 export const setup = async (args: ArgumentsCamelCase<CreateArguments>) => {
   try {
@@ -34,11 +31,4 @@ const run: CommandExecutor<CreateArguments> = async (args) => {
       message: 'Installing dependencies...',
     },
   ]
-
-  const setup = render(
-    <Box flexDirection='column' alignItems='flex-start'>
-      <Welcome />
-      <Loading message='Setting up...' />
-    </Box>,
-  )
 }
