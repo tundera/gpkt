@@ -11,4 +11,4 @@ usernames = ["renovate"]
 autoupdate_label = "♻️ autoupdate"
 
 [approve]
-auto_approve_usernames = ["rennovate", "tundera"]
+auto_approve_usernames = ["renovate", "tundera"]
