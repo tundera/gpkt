@@ -46,7 +46,7 @@
     "fs-extra": "10.0.1",
     "ohmyfetch": "0.4.15",
     "picocolors": "1.0.0",
-    "unconfig": "0.3.2",
+    "unconfig": "0.3.4",
     "yargs": "17.4.1"
   },
   "devDependencies": {
