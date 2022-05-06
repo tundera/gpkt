@@ -69,7 +69,7 @@ jobs:
           run_install: true
 
       - name: 🔎 Type check
-        run: pnpm typecheck --if-present
+        run: pnpm typecheck
 
   vitest:
     name: ⚡ Vitest
@@ -101,4 +101,4 @@ jobs:
           run_install: true
 
       - name: ⚡ Run vitest
-        run: pnpm test -- --coverage
+        run: pnpm test
