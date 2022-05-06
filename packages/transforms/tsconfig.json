@@ -1,6 +1,7 @@
 {
   "extends": "@gpkt/tsconfig/node-library",
   "compilerOptions": {
+    "types": ["vitest/globals"],
     "baseUrl": "."
   },
   "include": ["**/*.ts"],

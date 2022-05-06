@@ -2,4 +2,4 @@ dist
 bin
 node_modules
 templates
-
+coverage

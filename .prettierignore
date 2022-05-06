@@ -4,6 +4,7 @@
 **/.docusaurus
 **/.turbo
 **/__testfixtures__
+**/coverage
 
 package-lock.json
 .yarn

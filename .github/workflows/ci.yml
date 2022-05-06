@@ -1,0 +1,104 @@
+name: 🚀 CI
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request: {}
+
+jobs:
+  lint:
+    name: ⬣ ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: ♻️ Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+
+      - name: 📥 Download deps
+        uses: pnpm/action-setup@v2.1.0
+        with:
+          version: 7.0.0
+          run_install: true
+
+      - name: 🔬 Lint
+        run: pnpm lint
+
+  typecheck:
+    name: ʦ TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: ♻️ Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+
+      - name: 📥 Download deps
+        uses: pnpm/action-setup@v2.1.0
+        with:
+          version: 7.0.0
+          run_install: true
+
+      - name: 🔎 Type check
+        run: pnpm typecheck --if-present
+
+  vitest:
+    name: ⚡ Vitest
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: ♻️ Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+
+      - name: 📥 Download deps
+        uses: pnpm/action-setup@v2.1.0
+        with:
+          version: 7.0.0
+          run_install: true
+
+      - name: ⚡ Run vitest
+        run: pnpm test -- --coverage
