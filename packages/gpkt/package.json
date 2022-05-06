@@ -51,6 +51,7 @@
     "build": "unbuild",
     "stub": "unbuild --stub",
     "dev": "esno src/cli.ts new my-cli --project-directory ../../../example-cli --preset cli",
+    "typecheck": "tsc --noEmit",
     "lint": "TIMING=1 eslint --ext .ts,.tsx,.js,.jsx --cache --cache-location ./node_modules/.cache/eslint .",
     "prepublishOnly": "pnpm build",
     "clean": "rimraf dist"

@@ -22,6 +22,7 @@
     "clean": "turbo run clean && rimraf **/node_modules **/.turbo",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "changeset": "changeset",
     "version-packages": "changeset version",

@@ -39,7 +39,7 @@
   "scripts": {
     "dev": "tsup src/index.ts --format cjs,esm --watch",
     "build": "tsup src/index.ts --format cjs,esm --dts-resolve",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "typecheck": "tsc --noEmit",
     "lint": "TIMING=1 eslint --ext .ts,.tsx,.js,.jsx --cache --cache-location ./node_modules/.cache/eslint .",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
