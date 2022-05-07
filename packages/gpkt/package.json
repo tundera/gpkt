@@ -53,6 +53,8 @@
     "dev": "esno src/cli.ts new my-cli --project-directory ../../../example-cli --preset cli",
     "typecheck": "tsc --noEmit",
     "lint": "TIMING=1 eslint --ext .ts,.tsx,.js,.jsx --cache --cache-location ./node_modules/.cache/eslint .",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
     "prepublishOnly": "pnpm build",
     "clean": "rimraf dist"
   },
@@ -102,6 +104,7 @@
     "@types/tar": "6.1.1",
     "@types/validate-npm-package-name": "3.0.3",
     "@types/yargs": "^17.0.10",
+    "@vitejs/plugin-react": "1.3.2",
     "c8": "7.11.2",
     "eslint": "8.14.0",
     "eslint-config-gpkt": "workspace:*",
@@ -111,6 +114,7 @@
     "typescript": "^4.6.4",
     "unbuild": "^0.7.4",
     "unplugin": "0.6.2",
+    "vite-tsconfig-paths": "3.4.1",
     "vitest": "0.10.4"
   }
 }
