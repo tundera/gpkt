@@ -55,7 +55,7 @@
   "devDependencies": {
     "@gpkt/tsconfig": "workspace:*",
     "@types/eslint": "8.4.2",
-    "@types/jest": "27.5.0",
+    "@types/jest": "27.5.2",
     "@types/jscodeshift": "0.11.5",
     "@types/node": "17.0.31",
     "ast-types": "0.14.2",
@@ -63,7 +63,7 @@
     "eslint": "8.14.0",
     "eslint-config-gpkt": "workspace:*",
     "filedirname": "2.7.0",
-    "jest": "28.0.3",
+    "jest": "28.1.2",
     "ts-jest": "28.0.1",
     "ts-node": "10.7.0",
     "tsup": "5.12.7",
