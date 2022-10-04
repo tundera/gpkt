@@ -14,7 +14,7 @@
     "url": "https://github.com/tundera/gpkt",
     "directory": "packages/transforms"
   },
-  "packageManager": "pnpm@7.0.0",
+  "packageManager": "pnpm@7.13.1",
   "engines": {
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
