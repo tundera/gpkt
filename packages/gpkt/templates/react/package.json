@@ -44,7 +44,7 @@
     "@storybook/preview-web": "6.5.12",
     "@storybook/react": "6.5.12",
     "@storybook/testing-react": "1.2.4",
-    "@types/react": "18.0.8",
+    "@types/react": "18.0.26",
     "bumpp": "7.1.1",
     "gacp": "3.0.1",
     "husky": "7.0.4",
