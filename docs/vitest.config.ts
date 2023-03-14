@@ -11,6 +11,6 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./test/setup-test-env.ts'],
-    watchIgnore: ['.*\\/node_modules\\/.*', '.*\\/.next\\/.*'],
+    watchExclude: ['.*\\/node_modules\\/.*', '.*\\/.next\\/.*'],
   },
 })
